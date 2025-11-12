@@ -32,24 +32,6 @@ const OverallFeedbackCard = ({
           </div>
         )}
       </div>
-
-      {type === "sentence" && originalSentence && correctedSentence && (
-        <div className="space-y-2 pl-11">
-          <div>
-            <p className="text-xs font-medium text-muted-foreground mb-1">Original:</p>
-            <p className="text-sm text-foreground bg-secondary/50 px-3 py-2 rounded">
-              {originalSentence}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-muted-foreground mb-1">Corrected:</p>
-            <p className="text-sm text-foreground bg-primary/5 px-3 py-2 rounded border border-primary/20">
-              {correctedSentence}
-            </p>
-          </div>
-        </div>
-      )}
-
       <div className="pl-11">
         <p className="text-sm text-foreground leading-relaxed">{feedback}</p>
       </div>
