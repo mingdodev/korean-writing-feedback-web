@@ -10,6 +10,11 @@ interface ResultViewProps {
 }
 
 const ResultView = ({ data, onReset }: ResultViewProps) => {
+  const handleSentenceClick = (sentenceId: number) => {
+    const element = document.getElementById(`feedback-card-${sentenceId}`);
+    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -25,7 +30,7 @@ const ResultView = ({ data, onReset }: ResultViewProps) => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <UserContentPanel data={data} />
+        <UserContentPanel data={data} onSentenceClick={handleSentenceClick} />
         <FeedbackPanel data={data} />
       </div>
     </div>

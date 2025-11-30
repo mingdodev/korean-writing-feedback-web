@@ -1,21 +1,18 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
 import LoadingState from "@/components/LoadingState";
 import ResultView from "@/components/ResultView";
+import { fetchFeedback } from "@/lib/api";
+import { SentenceSchema } from "@/types/api";
 
+// View 컴포넌트에서 사용할 새로운 데이터 타입
 export type FeedbackData = {
   title: string;
-  content: string;
   contextFeedback: string;
-  sentenceFeedbacks: Array<{
-    originalSentence: string;
-    correctedSentence: string;
-    feedback: string;
-    startIndex: number;
-    endIndex: number;
-  }>;
+  sentences: SentenceSchema[];
 };
 
 const Index = () => {
@@ -26,27 +23,26 @@ const Index = () => {
   const handleSubmit = async (title: string, content: string) => {
     setPreviousInput({ title, content });
     setViewState("loading");
-    
-    // 백엔드 통합 전 API call 대신 모의 데이터 사용
-    setTimeout(() => {
-      const mockFeedback: FeedbackData = {
+
+    try {
+      // 1. 수정된 fetchFeedback 함수 호출
+      const apiResponse = await fetchFeedback(title, content);
+
+      // 2. API 응답을 View에서 사용할 데이터 형식으로 변환
+      const newFeedbackData: FeedbackData = {
         title,
-        content,
-        contextFeedback: "문맥 관련 피드백 또는 잘한 점이 응답됩니다.",
-        sentenceFeedbacks: [
-          {
-            originalSentence: "저는 어제 학교에 갔어요.",
-            correctedSentence: "저는 어제 학교에 갔습니다.",
-            feedback: "문어에서는 -어요/-아요 대신 -습니다/-ㅂ니다 를 사용하는 것이 좋아요.",
-            startIndex: content.indexOf("저는 어제 학교에 갔어요."),
-            endIndex: content.indexOf("저는 어제 학교에 갔어요.") + "저는 어제 학교에 갔어요.".length,
-          },
-        ],
+        contextFeedback: apiResponse.context_feedback.feedback,
+        sentences: apiResponse.sentences, // 서버가 내려준 문장 배열을 그대로 사용
       };
       
-      setFeedbackData(mockFeedback);
+      setFeedbackData(newFeedbackData);
       setViewState("result");
-    }, 2000);
+
+    } catch (error) {
+      console.error("Feedback fetch failed:", error);
+      toast.error(error instanceof Error ? error.message : "피드백 생성 중 오류가 발생했습니다.");
+      setViewState("input");
+    }
   };
 
   const handleReset = () => {

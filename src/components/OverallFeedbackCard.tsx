@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
 import { BookOpen, CheckCircle2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 interface FeedbackCardProps {
   type: "context" | "sentence";
@@ -13,8 +13,6 @@ const OverallFeedbackCard = ({
   type,
   title,
   feedback,
-  originalSentence,
-  correctedSentence,
 }: FeedbackCardProps) => {
   return (
     <div className="bg-card rounded-lg p-6 shadow-sm border border-border space-y-4 hover:shadow-md transition-shadow">
@@ -33,7 +31,9 @@ const OverallFeedbackCard = ({
         )}
       </div>
       <div className="pl-11">
-        <p className="text-sm text-foreground leading-relaxed">{feedback}</p>
+        <div className="prose prose-sm dark:prose-invert max-w-none text-foreground">
+          <ReactMarkdown>{feedback}</ReactMarkdown>
+        </div>
       </div>
     </div>
   );
