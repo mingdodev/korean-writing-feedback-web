@@ -14,18 +14,21 @@ const FeedbackPanel = ({ data }: FeedbackPanelProps) => {
 
   return (
     <div className="space-y-4">
-      <OverallFeedbackCard
-        type="context"
-        title="AI 선생님의 총평"
-        feedback={data.contextFeedback}
-      />
+      <div>
+        <h2 className="text-xl font-bold tracking-tight mb-4">문맥 피드백</h2>
+        <OverallFeedbackCard
+          type="context"
+          feedback={data.contextFeedback}
+        />
+      </div>
 
       {/* 스크롤 컨테이너 */}
       <div className="max-h-[42rem] overflow-y-auto space-y-4 pr-2 -mr-2">
-        {sentencesWithFeedback.map((sentence) => (
+        {sentencesWithFeedback.map((sentence, index) => (
           <div key={sentence.sentence_id} id={`feedback-card-${sentence.sentence_id}`}>
             <SentenceFeedbackCard
               sentence={sentence}
+              index={index}
             />
           </div>
         ))}

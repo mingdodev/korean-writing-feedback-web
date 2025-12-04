@@ -18,7 +18,7 @@ const ResultView = ({ data, onReset }: ResultViewProps) => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-foreground">&nbsp;피드백 결과</h2>
+        <h2 className="text-2xl font-bold text-foreground">&nbsp;AI 선생님의 피드백 결과</h2>
         <Button
           onClick={onReset}
           variant="outline"
