@@ -10,6 +10,11 @@ const SentenceFeedbackCard = ({ sentence }: SentenceFeedbackCardProps) => {
   const feedback = sentence.grammar_feedback;
   if (!feedback) return null;
 
+  // 교정 전과 교정 후 문장이 같으면 렌더링하지 않음
+  if (sentence.original_sentence === feedback.corrected_sentence) {
+    return null;
+  }
+
   return (
     <div className="bg-card rounded-lg p-6 shadow-sm border border-border hover:shadow-md transition-shadow">
       <div className="flex items-start gap-3">
