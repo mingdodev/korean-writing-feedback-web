@@ -49,6 +49,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        flash: "hsl(var(--flash))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -82,10 +83,19 @@ export default {
             height: "0",
           },
         },
+        "flash-effect": {
+          "0%, 100%": {
+            "background-color": "hsl(var(--card))",
+          },
+          "50%": {
+            "background-color": "hsl(var(--flash))",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "flash": "flash-effect 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
       },
     },
   },

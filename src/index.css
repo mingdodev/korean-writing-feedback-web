@@ -38,6 +38,7 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
+    --flash: 90 85% 92%;
     --error-highlight: 0 84% 95%;
     --error-text: 0 84% 40%;
 
@@ -82,6 +83,7 @@ All colors MUST be HSL.
     --input: 0 0% 25%;
     --ring: 84 80% 50%;
 
+    --flash: 90 70% 20%;
     --error-highlight: 0 84% 20%;
     --error-text: 0 84% 60%;
 

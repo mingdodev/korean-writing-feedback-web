@@ -11,8 +11,27 @@ interface ResultViewProps {
 
 const ResultView = ({ data, onReset }: ResultViewProps) => {
   const handleSentenceClick = (sentenceId: number) => {
-    const element = document.getElementById(`feedback-card-${sentenceId}`);
-    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const wrapperElement = document.getElementById(`feedback-card-${sentenceId}`);
+    if (wrapperElement) {
+      wrapperElement.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // 실제 카드 요소는 wrapper의 첫 번째 자식입니다.
+      const cardElement = wrapperElement.firstElementChild;
+      if (cardElement) {
+        // 기존 애니메이션 클래스를 제거하여 반복 실행이 가능하게 합니다.
+        cardElement.classList.remove("animate-flash");
+
+        // 브라우저가 클래스 제거를 인지할 시간을 주기 위해 약간의 딜레이를 줍니다.
+        requestAnimationFrame(() => {
+          cardElement.classList.add("animate-flash");
+        });
+
+        // 애니메이션이 끝난 후 클래스를 다시 제거합니다.
+        setTimeout(() => {
+          cardElement.classList.remove("animate-flash");
+        }, 1500);
+      }
+    }
   };
 
   return (
